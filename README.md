@@ -43,13 +43,12 @@ log in one go. Run it on the VM with:
     bash /host/verify-foundations.sh
 
 
-
-
-vagrant up //start up
-vagrant status //check
-vagrant halt //stop
-
-vagrant global-status --prune //list all
-vagrant destroy xxxxxxx //to remove the vm
-vagrant ssh //connect to vm
-exit //leave the vm
+| Command | ... |
+|---|---|
+| vagrant up | start up |
+| vagrant status | check status |
+| vagrant halt | shutdown vm |
+| vagrant global-status --prune | list all vms |
+| vagrant destroy xxxxxxx | to remove the vm |
+| vagrant ssh | connect to vm |
+| exit | leave the vm |
