@@ -1,0 +1,12 @@
+# No swpa or temp files
+*.swp
+.vscode/
+
+
+# No secrets and keys.
+*.pem
+*.key
+*.env
+
+# Exclude Vagrant
+.vagrant/
