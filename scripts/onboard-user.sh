@@ -20,13 +20,30 @@ fi
 # --- Constants ------------------------------------------------------------
 TEMP_PASSWORD="ChangeMe123!"
 
-# --- CSV READER ------------------------------------------------------------
+# --- Argument parsing ----------------------------------------------------
+DRY_RUN=false
 CSV_FILE=""
-# Naïve mode dispatch. The Argument Parsing and Dry-Run page replaces
-# this with a proper while/case/shift loop that handles flags in any order.
-if [ "$1" = "--csv" ]; then
-    CSV_FILE="$2"
-fi
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --csv)
+            CSV_FILE="$2"
+            shift 2
+            ;;
+        --dry-run)
+            DRY_RUN=true
+            shift
+            ;;
+        -h|--help)
+            grep '^# Usage:' "$0" | sed 's/^# //'
+            exit 0
+            ;;
+        *)
+            echo "Error: unknown argument '$1'." >&2
+            exit 1
+            ;;
+    esac
+done
 
 create_user () {
 
@@ -34,7 +51,11 @@ create_user () {
     local group="$2"
     local fullname="$3"
 
-    echo "Creating user '$username' in group '$group' with full name '$fullname'..."
+    #echo "Creating user '$username' in group '$group' with full name '$fullname'..."
+      if [ "$DRY_RUN" = true ]; then
+        echo "[dry-run] would create $username in $group with temp password"
+        return 0
+    fi
 
 
     # --- Guard: target group must exist ---------------------------------------
